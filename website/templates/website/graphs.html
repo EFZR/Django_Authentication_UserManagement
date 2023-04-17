@@ -1,0 +1,40 @@
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const barChart = document.getElementById('myBarChart');
+
+  new Chart(barChart, {
+    type: 'bar',
+    data: {
+      labels: {{ labelPosts|safe }},
+      datasets: [{
+        label: 'Post per User',
+        data: {{ dataPosts|safe }},
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  const pieChart = document.getElementById('myPieChart');
+
+  new Chart(pieChart, {
+    type: 'pie',
+    data: {
+      labels: {{ labelGroups|safe }},
+      datasets: [{
+        label: '# of Members',
+        data: {{ dataGroups|safe }},
+        borderWidth: 1
+      }]
+    }
+  });
+</script>

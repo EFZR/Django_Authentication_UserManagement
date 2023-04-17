@@ -1,0 +1,31 @@
+{% extends 'website/base.html' %}
+{% block title %} Users {% endblock %}
+{% block content %}
+
+{% if users_list %}
+<h1>Users {{request.user}}</h1>
+<table class="table">
+  <tr>
+    <th>Username</th>
+    <th>Group</th>
+    <th>Action</th>
+  </tr>
+  {% for user in users_list %}
+  <tr>
+    <td>{{ user.username }}</td>
+    <td>{{ user.groups__name }}</td>
+    {% if request.user.id == user.id %}
+    <td><a href="#" class="btn btn-success col-2">:)</a></td>
+    {% elif user.groups__name == None %}
+    <td><a href="{% url 'unban_user' user.id %}" class="btn btn-primary col-2">Unban</a></td>
+    {% else %}
+    <td><a href="{% url 'ban_user' user.id %}" class="btn btn-warning col-2">Ban</a></td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<h1>No Users</h1>
+{% endif %}
+
+{% endblock %}
